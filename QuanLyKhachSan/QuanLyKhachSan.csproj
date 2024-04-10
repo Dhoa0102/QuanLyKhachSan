@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataProvider.cs" />
+    <Compile Include="FDatPhong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDatPhong.Designer.cs">
+      <DependentUpon>FDatPhong.cs</DependentUpon>
+    </Compile>
     <Compile Include="fManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FDatPhong.resx">
+      <DependentUpon>FDatPhong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fManager.resx">
       <DependentUpon>fManager.cs</DependentUpon>
     </EmbeddedResource>

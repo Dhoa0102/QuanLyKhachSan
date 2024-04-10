@@ -48,7 +48,7 @@ namespace QuanLyKhachSan
                 MessageBox.Show("Da xay ra loi khi them phong\nHay dien day du thong tin");
                 return;
             }
-            string query = string.Format("exec USP_UpdateRoom {0},N'{1}',{2},{3},{4}", tbMaPhong.Text, cbbLoaiPhong.Text, tbGiaPhong.Text,cbbTinhTrang.Text ,1);
+            string query = string.Format("exec USP_UpdateRoom {0},N'{1}',{2},N'{3}',{4}", tbMaPhong.Text, cbbLoaiPhong.Text, tbGiaPhong.Text,cbbTinhTrang.Text ,1);
             if (DataProvider.Instance.ExecuteNonQuery(query) > 0)
             {
                 MessageBox.Show("Cap nhat phong thanh cong");
@@ -63,7 +63,22 @@ namespace QuanLyKhachSan
 
         private void btnXoaPhong_Click(object sender, EventArgs e)
         {
-
+            if (tbMaPhong.Text == "")
+            {
+                MessageBox.Show("Da xay ra loi khi them phong\nHay dien day du thong tin");
+                return;
+            }
+            string query = string.Format("exec USP_DeleteRoom {0}", tbMaPhong.Text);
+            if (DataProvider.Instance.ExecuteNonQuery(query) > 0)
+            {
+                MessageBox.Show("Xoa phong thanh cong");
+                LoadPhong();
+            }
+            else
+            {
+                MessageBox.Show(query);
+                MessageBox.Show("Da xay ra loi khi xoa phong");
+            }
         }
     }
 }
