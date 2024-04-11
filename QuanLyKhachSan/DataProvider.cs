@@ -27,6 +27,7 @@ namespace QuanLyKhachSan
        // private string connectionStr = @"Data Source=DESKTOP-D1VEMR6\DINHHOA;Initial Catalog=QLKS;Integrated Security=True";
         //private string connectionStr = @"Data Source=LEHUNG;Initial Catalog=QLCF;Integrated Security=True";
         private string connectionStr = @"Data Source=LAPTOP-7D271VJA\MINHVAN;Initial Catalog=QLKS;Integrated Security=True;TrustServerCertificate=True";
+        //Data Source=LEHUNG\THAIHUNG;Initial Catalog=HeQuanTriCSDL_QuanLyKhachSan;Integrated Security=True;Trust Server Certificate=True
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
