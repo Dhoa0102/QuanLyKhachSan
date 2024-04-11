@@ -43,5 +43,10 @@ namespace QuanLyKhachSan
                 txtMaKhachSan.Text = row.Cells["MaKhachSan"].Value.ToString();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
