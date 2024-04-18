@@ -80,5 +80,10 @@ namespace QuanLyKhachSan
                 MessageBox.Show("Da xay ra loi khi xoa phong");
             }
         }
+
+        private void fManager_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
