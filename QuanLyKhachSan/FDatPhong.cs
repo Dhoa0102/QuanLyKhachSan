@@ -19,10 +19,15 @@ namespace QuanLyKhachSan
         {
             InitializeComponent();
             LoadPhong();
+            LoadKhachHang();
         }
         public void LoadPhong()
         {
             dtgv_PhongDat.DataSource = DataProvider.Instance.ExecuteQuery("Select * from View_PhongTrong");
+        }
+        public void LoadKhachHang()
+        {
+            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("Select * from KhachHang");
         }
         private void FDatPhong_Load(object sender, EventArgs e)
         {
@@ -107,7 +112,7 @@ namespace QuanLyKhachSan
        "INSERT INTO KhachHang VALUES ('{0}', '{1}', '{2}'); " + // Add space after VALUES and between single quotes
        "END " + // Add space after END
        "EXEC USP_DatPhong '{2}', '{3}', '{4}', '{5}', '{6}'; " + // Add space after EXEC and between parameters
-       "COMMIT TRANSACTION;", txbNameCustomer.Text, txbSDT.Tag, txbCCCD.Text, txtMaPhong.Text, dtpNgayDat.Value.ToString(), dtpNgayCheckIn.Value.ToString(), dtpNgayCheckOut.Value.ToString());
+       "COMMIT TRANSACTION;", txbNameCustomer.Text, txbSDT.Text, txbCCCD.Text, txtMaPhong.Text, dtpNgayDat.Value.ToString(), dtpNgayCheckIn.Value.ToString(), dtpNgayCheckOut.Value.ToString());
             // Create connection
             using (SqlConnection connection = new SqlConnection(connectionStr))
             {
@@ -129,6 +134,7 @@ namespace QuanLyKhachSan
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+            LoadKhachHang();
         }
 
         private void btnDatDichVu_Click(object sender, EventArgs e)
