@@ -85,5 +85,10 @@ namespace QuanLyKhachSan
         {
 
         }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

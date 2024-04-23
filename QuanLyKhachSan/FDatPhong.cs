@@ -38,10 +38,14 @@ namespace QuanLyKhachSan
         {
             dgvDichVu.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDICHVU");
             dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetKhachHang");
+
             dgvDonDatDichVu.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatDichVuChuaThanhToan");
+
+
             dgvDichVuDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatDichVuChuaThanhToan");
             dgvDatPhongDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatPhongChuaThanhToan");
             dgvHoaDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetHoaDon");
+            dgvChiTietDonDatDichVu.DataSource= DataProvider.Instance.ExecuteQuery("USP_GetChiTietDonDatDichVu");
         }
         private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -94,6 +98,9 @@ namespace QuanLyKhachSan
                 // Đổ dữ liệu từ DataGridView vào các TextBox
                 txtMaDatPhong.Text = row.Cells["MaDatPhong"].Value.ToString();
                 txbmaphong.Text= row.Cells["MaPhong"].Value.ToString();
+                dtpCheckIn.Text= row.Cells["NgayCheckIn"].Value.ToString();
+                dtpCheckOut.Text = row.Cells["NgayCheckOut"].Value.ToString();
+
             }
         }
 
@@ -212,7 +219,7 @@ namespace QuanLyKhachSan
             {
                 try
                 {
-                    string query = string.Format("SELECT dbo.GetDonGiaFromPhong('{0}')", txbmaphong.Text);
+                    string query = string.Format("SELECT dbo.GetDonGiaFromPhong('{0}','{1}','{2}')", txbmaphong.Text,dtpCheckIn.Value.ToString(),dtpCheckOut.Value.ToString());
                     object result = DataProvider.Instance.ExecuteScalar(query);
                     if (result != null && result != DBNull.Value)
                     {
@@ -234,25 +241,52 @@ namespace QuanLyKhachSan
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text, txtMaDatDV.Text, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
-            using (SqlConnection connection = new SqlConnection(connectionStr))
+            if (string.IsNullOrEmpty(txtMaDatDV.Text))
             {
-                // Create command
-                SqlCommand command = new SqlCommand(query, connection);
-
-                try
+                string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text,100000, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
+                using (SqlConnection connection = new SqlConnection(connectionStr))
                 {
-                    // Open connection
-                    connection.Open();
+                    // Create command
+                    SqlCommand command = new SqlCommand(query, connection);
 
-                    // Execute command
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        // Open connection
+                        connection.Open();
 
-                    MessageBox.Show("Success");
+                        // Execute command
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
+            }
+            else
+            {
+                string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text, txtMaDatDV.Text, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
+                using (SqlConnection connection = new SqlConnection(connectionStr))
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    // Create command
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    try
+                    {
+                        // Open connection
+                        connection.Open();
+
+                        // Execute command
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
                 }
             }
             loadF();
