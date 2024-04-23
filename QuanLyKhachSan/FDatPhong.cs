@@ -43,6 +43,9 @@ namespace QuanLyKhachSan
 
 
             dgvDichVuDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatDichVuChuaThanhToan");
+
+
+
             dgvDatPhongDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatPhongChuaThanhToan");
             dgvHoaDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetHoaDon");
             dgvChiTietDonDatDichVu.DataSource= DataProvider.Instance.ExecuteQuery("USP_GetChiTietDonDatDichVu");
@@ -243,7 +246,7 @@ namespace QuanLyKhachSan
         {
             if (string.IsNullOrEmpty(txtMaDatDV.Text))
             {
-                string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text,100000, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
+                string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text,"100000", txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
                 using (SqlConnection connection = new SqlConnection(connectionStr))
                 {
                     // Create command
