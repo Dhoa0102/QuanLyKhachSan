@@ -34,7 +34,7 @@ namespace QuanLyKhachSan
         }
         public void LoadKhachHang()
         {
-            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("Select * from KhachHang");
+            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("select * from view_BangDonKhach");
         }
         private void FDatPhong_Load(object sender, EventArgs e)
         {
@@ -44,7 +44,7 @@ namespace QuanLyKhachSan
         private void loadF()
         {
             dgvDichVu.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDICHVU");
-            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetKhachHang");
+            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("select * from view_BangDonKhach");
 
             dgvDonDatDichVu.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatDichVuChuaThanhToan");
 
@@ -54,6 +54,9 @@ namespace QuanLyKhachSan
 
 
             dgvDatPhongDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatPhongChuaThanhToan");
+
+
+
             dgvHoaDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetHoaDon");
             dgvChiTietDonDatDichVu.DataSource= DataProvider.Instance.ExecuteQuery("USP_GetChiTietDonDatDichVu");
         }
@@ -152,6 +155,7 @@ namespace QuanLyKhachSan
                 }
             }
             LoadKhachHang();
+            LoadPhong();
         }
 
         private void btnDatDichVu_Click(object sender, EventArgs e)
@@ -292,5 +296,6 @@ namespace QuanLyKhachSan
                 txtMaDatDichVu.Text = row.Cells["MaDatDV"].Value.ToString();
             }
         }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace QuanLyKhachSan
     public partial class fManager : Form
     {
 
-        private string connectionStr = @"Data Source=LAPTOP-7D271VJA\MINHVAN;Initial Catalog=KhachSan_Test;Integrated Security=True;TrustServerCertificate=True";
+        private string connectionStr = @"Data Source=LEHUNG\THAIHUNG;Initial Catalog=QuanLyKhachSan_Fix;Integrated Security=True;Encrypt=True";
 
         public fManager()
         {
@@ -29,7 +30,7 @@ namespace QuanLyKhachSan
             dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("Select * from KhachHang");
             dgvPhong.DataSource = DataProvider.Instance.ExecuteQuery("Select * from Phong");
             dgvNhanVien.DataSource = DataProvider.Instance.ExecuteQuery("Select * from NhanVien");
-            dgvDIchvu.DataSource = DataProvider.Instance.ExecuteQuery("Select * from DichVu");
+            dgvDichvu.DataSource = DataProvider.Instance.ExecuteQuery("Select * from DichVu");
             dgv_HoaDon.DataSource = DataProvider.Instance.ExecuteQuery("Select * from HoaDon");
         }
 
@@ -285,18 +286,15 @@ namespace QuanLyKhachSan
 
         private void btnTKPhong_Click(object sender, EventArgs e)
         {
-            DataTable PhongInfo = TimKiemPhong(txb_MaPhong_TK.Text);
 
-            if (PhongInfo.Rows.Count > 0)
-            {
-                dgvKhachHang.DataSource = PhongInfo;
-                //  txbMaKhachHang.Text = PhongInfo.Rows[0]["MaPhong"].ToString();
-            }
+            string query = string.Format("SELECT * FROM TimKiemPhong('{0}')",txb_MaPhong_TK.Text);
+            object result = DataProvider.Instance.ExecuteQuery(query);
+            if (result == null)
+                MessageBox.Show("Khong tim thay thong tin");
             else
             {
-                Console.WriteLine("Không tìm thấy thông tin khách hàng.");
+                dgvPhong.DataSource = result;
             }
-            dgvPhong.DataSource = PhongInfo;
         }
 
         private DataTable TimKiemPhong(string maphong)
@@ -336,6 +334,81 @@ namespace QuanLyKhachSan
         private void button1_Click_1(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string query = string.Format("SELECT * FROM TimKiemNhanVien('{0}')", txt_MaNV_TK.Text);
+            object result = DataProvider.Instance.ExecuteQuery(query);
+            if (result == null)
+                MessageBox.Show("Khong tim thay thong tin");
+            else
+            {
+                dgvNhanVien.DataSource = result;
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string query = string.Format("select* from TimKiemDichVu('{0}')", txt_TimKiemMaDichVu.Text);
+            object result = DataProvider.Instance.ExecuteQuery(query);
+            if (result == null)
+                MessageBox.Show("Khong tim thay thong tin");
+            else
+            {
+                dgvDichvu.DataSource = result;
+            }
+
+        }
+
+        private void btn_Load_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void btn_LoadDichVu_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string query = string.Format("select* from TimKiemHoaDon('{0}')", txtTKHHOADON.Text);
+            object result = DataProvider.Instance.ExecuteQuery(query);
+            if (result == null)
+                MessageBox.Show("Khong tim thay thong tin");
+            else
+            {
+                dgv_HoaDon.DataSource = result;
+            }
+        }
+
+        private void radio_TK_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            if (radioButton != null && radioButton.Checked)
+            {
+              
+                if (radioButton.Name == "radio_TK_DATE") 
+                {
+                    string query = string.Format("select* from TimKiemHoaDon_NgayThanhToan()");
+                    object result = DataProvider.Instance.ExecuteQuery(query);
+                    if (result == null)
+                        MessageBox.Show("Khong tim thay thong tin");
+                    else
+                    {
+                        dgv_HoaDon.DataSource = result;
+                    }
+
+                }
+                else if (radioButton.Name == "radioButton2")
+                {
+                    
+                }
+             
+            }
+
         }
     }
 
