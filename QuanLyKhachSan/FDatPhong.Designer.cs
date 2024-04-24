@@ -58,6 +58,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtgv_PhongDat = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgvChiTietDonDatDichVu = new System.Windows.Forms.DataGridView();
             this.label31 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -79,6 +80,10 @@
             this.dgvDonDatDichVu = new System.Windows.Forms.DataGridView();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dtpCheckOut = new System.Windows.Forms.DateTimePicker();
+            this.dtpCheckIn = new System.Windows.Forms.DateTimePicker();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.txbmaphong = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.btnTinhTien = new System.Windows.Forms.Button();
@@ -99,11 +104,6 @@
             this.label23 = new System.Windows.Forms.Label();
             this.dgvDichVuDon = new System.Windows.Forms.DataGridView();
             this.dgvHoaDon = new System.Windows.Forms.DataGridView();
-            this.dgvChiTietDonDatDichVu = new System.Windows.Forms.DataGridView();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.dtpCheckIn = new System.Windows.Forms.DateTimePicker();
-            this.dtpCheckOut = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -111,6 +111,7 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_PhongDat)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietDonDatDichVu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKhachHang)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).BeginInit();
             this.panel5.SuspendLayout();
@@ -119,7 +120,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatPhongDon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVuDon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietDonDatDichVu)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -472,6 +472,16 @@
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
+            // dgvChiTietDonDatDichVu
+            // 
+            this.dgvChiTietDonDatDichVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvChiTietDonDatDichVu.Location = new System.Drawing.Point(15, 566);
+            this.dgvChiTietDonDatDichVu.Name = "dgvChiTietDonDatDichVu";
+            this.dgvChiTietDonDatDichVu.RowHeadersWidth = 62;
+            this.dgvChiTietDonDatDichVu.RowTemplate.Height = 28;
+            this.dgvChiTietDonDatDichVu.Size = new System.Drawing.Size(705, 214);
+            this.dgvChiTietDonDatDichVu.TabIndex = 11;
+            // 
             // label31
             // 
             this.label31.AutoSize = true;
@@ -681,6 +691,8 @@
             this.dgvDonDatDichVu.RowTemplate.Height = 24;
             this.dgvDonDatDichVu.Size = new System.Drawing.Size(705, 216);
             this.dgvDonDatDichVu.TabIndex = 0;
+            this.dgvDonDatDichVu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDonDatDichVu_CellClick);
+            this.dgvDonDatDichVu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDonDatDichVu_CellContentClick);
             // 
             // label16
             // 
@@ -725,6 +737,48 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dtpCheckOut
+            // 
+            this.dtpCheckOut.CalendarFont = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpCheckOut.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpCheckOut.Location = new System.Drawing.Point(351, 681);
+            this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtpCheckOut.Name = "dtpCheckOut";
+            this.dtpCheckOut.Size = new System.Drawing.Size(224, 36);
+            this.dtpCheckOut.TabIndex = 34;
+            // 
+            // dtpCheckIn
+            // 
+            this.dtpCheckIn.CalendarFont = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpCheckIn.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpCheckIn.Location = new System.Drawing.Point(351, 586);
+            this.dtpCheckIn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dtpCheckIn.Name = "dtpCheckIn";
+            this.dtpCheckIn.Size = new System.Drawing.Size(224, 36);
+            this.dtpCheckIn.TabIndex = 33;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Century", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(347, 634);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(180, 27);
+            this.label33.TabIndex = 31;
+            this.label33.Text = "Ngày Check Out";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Century", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(347, 548);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(155, 27);
+            this.label32.TabIndex = 29;
+            this.label32.Text = "Ngày check in";
             // 
             // txbmaphong
             // 
@@ -936,58 +990,6 @@
             this.dgvHoaDon.TabIndex = 0;
             this.dgvHoaDon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
-            // dgvChiTietDonDatDichVu
-            // 
-            this.dgvChiTietDonDatDichVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChiTietDonDatDichVu.Location = new System.Drawing.Point(15, 566);
-            this.dgvChiTietDonDatDichVu.Name = "dgvChiTietDonDatDichVu";
-            this.dgvChiTietDonDatDichVu.RowHeadersWidth = 62;
-            this.dgvChiTietDonDatDichVu.RowTemplate.Height = 28;
-            this.dgvChiTietDonDatDichVu.Size = new System.Drawing.Size(705, 214);
-            this.dgvChiTietDonDatDichVu.TabIndex = 11;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Century", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(347, 548);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(155, 27);
-            this.label32.TabIndex = 29;
-            this.label32.Text = "Ngày check in";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Century", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(347, 634);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(180, 27);
-            this.label33.TabIndex = 31;
-            this.label33.Text = "Ngày Check Out";
-            // 
-            // dtpCheckIn
-            // 
-            this.dtpCheckIn.CalendarFont = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpCheckIn.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpCheckIn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCheckIn.Location = new System.Drawing.Point(351, 586);
-            this.dtpCheckIn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtpCheckIn.Name = "dtpCheckIn";
-            this.dtpCheckIn.Size = new System.Drawing.Size(224, 36);
-            this.dtpCheckIn.TabIndex = 33;
-            // 
-            // dtpCheckOut
-            // 
-            this.dtpCheckOut.CalendarFont = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpCheckOut.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpCheckOut.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCheckOut.Location = new System.Drawing.Point(351, 681);
-            this.dtpCheckOut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dtpCheckOut.Name = "dtpCheckOut";
-            this.dtpCheckOut.Size = new System.Drawing.Size(224, 36);
-            this.dtpCheckOut.TabIndex = 34;
-            // 
             // FDatPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1009,6 +1011,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_PhongDat)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietDonDatDichVu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKhachHang)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).EndInit();
             this.panel5.ResumeLayout(false);
@@ -1019,7 +1022,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatPhongDon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVuDon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietDonDatDichVu)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -244,32 +244,7 @@ namespace QuanLyKhachSan
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtMaDatDV.Text))
-            {
-                string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text,"100000", txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
-                using (SqlConnection connection = new SqlConnection(connectionStr))
-                {
-                    // Create command
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    try
-                    {
-                        // Open connection
-                        connection.Open();
-
-                        // Execute command
-                        command.ExecuteNonQuery();
-
-                        MessageBox.Show("Success");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
-            }
-            else
-            {
+  
                 string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text, txtMaDatDV.Text, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
                 using (SqlConnection connection = new SqlConnection(connectionStr))
                 {
@@ -291,8 +266,24 @@ namespace QuanLyKhachSan
                         MessageBox.Show("Error: " + ex.Message);
                     }
                 }
-            }
+            
             loadF();
+        }
+
+        private void dgvDonDatDichVu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvDonDatDichVu_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Kiểm tra xem đã click vào một dòng hợp lệ chưa
+            {
+                DataGridViewRow row = dgvDonDatDichVu.Rows[e.RowIndex];
+
+                // Đổ dữ liệu từ DataGridView vào các TextBox
+                txtMaDatDichVu.Text = row.Cells["MaDatDV"].Value.ToString();
+            }
         }
     }
 }
