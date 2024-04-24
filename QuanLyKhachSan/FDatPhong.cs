@@ -21,6 +21,13 @@ namespace QuanLyKhachSan
             LoadPhong();
             LoadKhachHang();
         }
+        public FDatPhong(int s)
+        {
+            InitializeComponent();
+            tabControl1.SelectTab(s);
+            LoadPhong();
+            LoadKhachHang();
+        }
         public void LoadPhong()
         {
             dtgv_PhongDat.DataSource = DataProvider.Instance.ExecuteQuery("Select * from View_PhongTrong");
