@@ -15,11 +15,13 @@ namespace QuanLyKhachSan
     public partial class fManager : Form
     {
 
-        private string connectionStr = @"Data Source=LEHUNG\THAIHUNG;Initial Catalog=QuanLyKhachSan_Fix;Integrated Security=True;Encrypt=True";
+        private string connectionStr = @"";
 
         public fManager()
         {
             InitializeComponent();
+            connectionStr = User.getConnectionString();
+
             tabControl1.SelectTab(5);
             LoadData();
 
@@ -27,11 +29,11 @@ namespace QuanLyKhachSan
 
         public void LoadData()
         {
-            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("Select * from KhachHang");
-            dgvPhong.DataSource = DataProvider.Instance.ExecuteQuery("Select * from Phong");
+            dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("Select * from View_KhachHang");
+            dgvPhong.DataSource = DataProvider.Instance.ExecuteQuery("Select * from ShowPhong ");
             dgvNhanVien.DataSource = DataProvider.Instance.ExecuteQuery("Select * from NhanVien");
-            dgvDichvu.DataSource = DataProvider.Instance.ExecuteQuery("Select * from DichVu");
-            dgv_HoaDon.DataSource = DataProvider.Instance.ExecuteQuery("Select * from HoaDon");
+            dgvDichvu.DataSource = DataProvider.Instance.ExecuteQuery("Select * from  View_DICHVU");
+            dgv_HoaDon.DataSource = DataProvider.Instance.ExecuteQuery("Select * from View_HoaDon");
         }
 
         private void btnThemPhong_Click(object sender, EventArgs e)

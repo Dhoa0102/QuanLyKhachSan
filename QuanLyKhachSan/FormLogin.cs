@@ -40,7 +40,7 @@ namespace QuanLyKhachSan
 
         public void openForm()
         {
-            string role = User.getRole();
+            string role = User.getRole(); //kiem tra quyen han cua tai khoan
             MessageBox.Show(role);
             if (role.Equals("NHANVIEN"))
             {
@@ -70,6 +70,8 @@ namespace QuanLyKhachSan
         {
             txtTK.Text = "";
             txtPass.Text = "";
+            User.pass = "";
+            User.user = "";
         }
     }
 }

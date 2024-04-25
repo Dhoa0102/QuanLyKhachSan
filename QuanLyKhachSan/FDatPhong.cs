@@ -14,10 +14,11 @@ namespace QuanLyKhachSan
 {
     public partial class FDatPhong : Form
     {
-        private string connectionStr = @"Data Source=LEHUNG\THAIHUNG;Initial Catalog=QuanLyKhachSan_Fix;Integrated Security=True";
+        private string connectionStr = @"";
         public FDatPhong()
         {
             InitializeComponent();
+            connectionStr = User.getConnectionString();
             LoadPhong();
             LoadKhachHang();
         }
@@ -27,14 +28,24 @@ namespace QuanLyKhachSan
             tabControl1.SelectTab(s);
             LoadPhong();
             LoadKhachHang();
+            
+        }
+
+
+        public void loadChuaThanhToan()
+        {
+            dgvDatPhongDon.DataSource = DataProvider.Instance.ExecuteQuery("EXEC USP_GetDonDatPhongChuaThanhToan");
+            dgvDatPhongDon.Refresh();
         }
         public void LoadPhong()
         {
             dtgv_PhongDat.DataSource = DataProvider.Instance.ExecuteQuery("Select * from View_PhongTrong");
+            dtgv_PhongDat.Refresh();
         }
         public void LoadKhachHang()
         {
             dgvKhachHang.DataSource = DataProvider.Instance.ExecuteQuery("select * from view_BangDonKhach");
+            dgvKhachHang.Refresh();
         }
         private void FDatPhong_Load(object sender, EventArgs e)
         {
@@ -116,46 +127,59 @@ namespace QuanLyKhachSan
 
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //khi thực hiện đặt phòng nó sẽ tạo thông tin cho khách hàng , nếu khách hàng đã có trong db thì k cần thêm thông tin khách hàng 
-            //mà chỉ thực hiện đặt phòng thông qua PROC USP_DatPhong 
-            //USP_DatPhong lay ma khach hang thong qua CCCD cua ho
-            string query = string.Format("BEGIN TRANSACTION; " +
-       "DECLARE @ExistingCustomer INT; " + // Add space after INT
-       "SELECT @ExistingCustomer = MaKhachHang " + // Add space after MaKhachHang
-       "FROM KhachHang " + // Add space after KhachHang
-       "WHERE CCCD = '{2}'; " + // Add space after '{2}'
-       "IF @ExistingCustomer IS NULL " + // Add space after NULL
-       "BEGIN " + // Add space after BEGIN
-       "INSERT INTO KhachHang VALUES ('{0}', '{1}', '{2}'); " + // Add space after VALUES and between single quotes
-       "END " + // Add space after END
-       "EXEC USP_DatPhong '{2}', '{3}', '{4}', '{5}', '{6}'; " + // Add space after EXEC and between parameters
-       "COMMIT TRANSACTION;", txbNameCustomer.Text, txbSDT.Text, txbCCCD.Text, txtMaPhong.Text, dtpNgayDat.Value.ToString(), dtpNgayCheckIn.Value.ToString(), dtpNgayCheckOut.Value.ToString());
-            // Create connection
-            using (SqlConnection connection = new SqlConnection(connectionStr))
+        //khi thực hiện đặt phòng nó sẽ tạo thông tin cho khách hàng , nếu khách hàng đã có trong db thì k cần thêm thông tin khách hàng 
+        //mà chỉ thực hiện đặt phòng thông qua PROC USP_DatPhong 
+        //USP_DatPhong lay ma khach hang thong qua CCCD cua ho
+        /*     string query = string.Format("BEGIN TRANSACTION; " +
+        "DECLARE @ExistingCustomer INT; " + // Add space after INT
+        "SELECT @ExistingCustomer = MaKhachHang " +  // Add space after MaKhachHang
+        "FROM KhachHang " + // Add space after KhachHang
+        "WHERE CCCD = '{2}'; " + // Add space after '{2}'
+        "IF @ExistingCustomer IS NULL " + // Add space after NULL
+        "BEGIN " + // Add space after BEGIN
+        "INSERT INTO KhachHang VALUES ('{0}', '{1}', '{2}'); " + // Add space after VALUES and between single quotes
+        "END " + // Add space after END
+        "EXEC USP_DatPhong '{2}', '{3}', '{4}', '{5}', '{6}'; " + // Add space after EXEC and between parameters
+        "COMMIT TRANSACTION;", txbNameCustomer.Text, txbSDT.Text, txbCCCD.Text, txtMaPhong.Text, dtpNgayDat.Value.ToString(), dtpNgayCheckIn.Value.ToString(), dtpNgayCheckOut.Value.ToString());
+             // Create connection*/
+        //(@NameCustomer VARCHAR(50), @SDT VARCHAR(15), @CCCD VARCHAR(20), @MAPHONG INT, @NGAYDAT DATE, @NGAYCHECKIN DATE, @NGAYCHECKOUT DATE)
+            private void button1_Click(object sender, EventArgs e)
             {
-                // Create command
-                SqlCommand command = new SqlCommand(query, connection);
-
-                try
+           
+                string query = String.Format("exec DATPHONG_CHECKKH '{0}','{1}','{2}' ,'{3}','{4}','{5}','{6}'",txbNameCustomer.Text, txbSDT.Text, txbCCCD.Text, txtMaPhong.Text, dtpNgayDat.Value.ToString(), dtpNgayCheckIn.Value.ToString(), dtpNgayCheckOut.Value.ToString());
+                // Create connection*/);
+                using (SqlConnection connection = new SqlConnection(connectionStr))
                 {
-                    // Open connection
-                    connection.Open();
+                    // Create command
+                    SqlCommand command = new SqlCommand(query, connection);
 
-                    // Execute command
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        // Open connection
+                        connection.Open();
 
-                    MessageBox.Show("Success");
+                        // Execute command
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
+                LoadKhachHang();
+                LoadPhong();
+                loadChuaThanhToan();
+                clear();
             }
-            LoadKhachHang();
-            LoadPhong();
+
+        public void clear()
+        {
+            txtMaPhong.Text = "";
+            txtLoaiPhong.Text = "";
+            txtDonGia.Text = "";
+            //txtMaKhachHang.Text = "";
         }
 
         private void btnDatDichVu_Click(object sender, EventArgs e)
@@ -238,6 +262,8 @@ namespace QuanLyKhachSan
                     if (result != null && result != DBNull.Value)
                     {
                         tongtienphong = Convert.ToInt32(result);
+                        MessageBox.Show(tongtienphong + "");
+
                     }
                     else
                     {
@@ -277,7 +303,8 @@ namespace QuanLyKhachSan
                         MessageBox.Show("Error: " + ex.Message);
                     }
                 }
-            
+            LoadKhachHang();
+            LoadPhong();
             loadF();
         }
 
