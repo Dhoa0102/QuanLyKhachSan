@@ -23,6 +23,7 @@ namespace QuanLyKhachSan
                 connection.Open();
                 user = username;
                 pass = password;
+                connection.Close();
                 return true;
             }
             catch (Exception e)

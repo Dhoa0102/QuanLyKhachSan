@@ -63,6 +63,7 @@ namespace QuanLyKhachSan
         private void Fd_FormClosed(object sender, FormClosedEventArgs e)
         {
             reset();
+           
             this.Show();
         }
 

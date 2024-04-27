@@ -412,6 +412,43 @@ namespace QuanLyKhachSan
             }
 
         }
+
+        public bool isNotNull()
+        {
+            if (txtTKT.Text.Length <= 0)
+                return false;
+            if (txtMK.Text.Length <= 0)
+                return false;
+            if (txtNhapLaiMK.Text.Length <= 0)
+                return false;
+            return true;
+        }
+
+        public bool isSameMK()
+        {
+            if (txtMK.Text.Trim().Equals(txtNhapLaiMK.Text.Trim()))
+                return true;
+            return false;
+        }
+
+        private void btnDK_Click(object sender, EventArgs e)
+        {
+            if (!isNotNull())
+            {
+                MessageBox.Show("Vui lòng không để trống");
+                return;
+            }
+            if (!isSameMK())
+            {
+                MessageBox.Show("Vui lòng nhập mk ở 2 ô giống nhau");
+                return;
+            }
+            object a = DataProvider.Instance.ExecuteNonQuery(String.Format("exec createUser '{0}', '{1}'", txtTKT.Text.Trim(), txtMK.Text.Trim()));
+            if (a!=null)
+            {
+                MessageBox.Show("Tạo tài khoản nhân viên mới thành công");
+            }
+        }
     }
 
 
