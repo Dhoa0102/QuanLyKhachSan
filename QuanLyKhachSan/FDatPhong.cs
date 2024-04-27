@@ -282,30 +282,33 @@ namespace QuanLyKhachSan
         private void button2_Click(object sender, EventArgs e)
         {
   
-                string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text, txtMaDatDV.Text, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
-                using (SqlConnection connection = new SqlConnection(connectionStr))
+            string query = string.Format("USP_InsertHoaDon '{0}', '{1}', '{2}' ,'{3}' ,'{4}';", txtMaNhanVienThanhToan.Text, txtMaDatPhong.Text, txtMaDatDV.Text, txtTongGiaTien.Text, dtpNgayThanhToan.Value.ToString());
+            using (SqlConnection connection = new SqlConnection(connectionStr))
+            {
+                // Create command
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
                 {
-                    // Create command
-                    SqlCommand command = new SqlCommand(query, connection);
+                    // Open connection
+                    connection.Open();
 
-                    try
-                    {
-                        // Open connection
-                        connection.Open();
+                    // Execute command
+                    command.ExecuteNonQuery();
 
-                        // Execute command
-                        command.ExecuteNonQuery();
-
-                        MessageBox.Show("Success");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
+                    MessageBox.Show("Success");
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
             LoadKhachHang();
             LoadPhong();
             loadF();
+            fdanhgia fdg=new fdanhgia();
+            DataStorage.MaHD = int.Parse(DataProvider.Instance.ExecuteScalar("select MAX(MaHD) from HoaDon").ToString());
+            fdg.ShowDialog();
         }
 
         private void dgvDonDatDichVu_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -11,6 +11,7 @@ namespace QuanLyKhachSan
 {
     public class User
     {
+
         public static string connectString = @"Data Source=LAPTOP-T2D8QL38\SQLSV2;Initial Catalog=QuanLyKhachSan_Fix;Integrated Security=false;User ID={0};password={1}";
         public static string user = "";
         public static string pass = "";

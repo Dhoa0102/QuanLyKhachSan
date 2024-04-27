@@ -226,8 +226,11 @@ namespace QuanLyKhachSan
         }
         private void dgv_HoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-
+            int mahd =int.Parse(dgv_HoaDon.CurrentRow.Cells[0].Value.ToString());
+            DataTable dt = DataProvider.Instance.ExecuteQuery("Select * from DanhGia where MaHD=" + mahd.ToString());
+            DataRow row = dt.Rows[0];
+            cbbRate.TabIndex =int.Parse(row["DiemDanhGia"].ToString());
+            tbDanhGia.Text = row["NoiDung"].ToString();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace QuanLyKhachSan
             connectionStr = User.getConnectionString();
         }
        // private string connectionStr = @"Data Source=DESKTOP-D1VEMR6\DINHHOA;Initial Catalog=QLKS;Integrated Security=True";
-   //     private string connectionStr = @"Data Source=LEHUNG;Initial Catalog=QLCF;Integrated Security=True";
+        //private string connectionStr = @"Data Source=DESKTOP-D1VEMR6\DINHHOA;Initial Catalog=QuanLyKhachSan_Fix;Integrated Security=True;Trust Server Certificate=True";
         private string connectionStr = @"";
         //Data Source=LEHUNG\THAIHUNG;Initial Catalog=HeQuanTriCSDL_QuanLyKhachSan;Integrated Security=True;Trust Server Certificate=True
 
